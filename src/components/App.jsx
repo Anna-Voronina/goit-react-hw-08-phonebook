@@ -4,12 +4,32 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import css from './App.module.css';
+import Storage from 'utils/local-storage';
+
+const STORAGE_KEY = 'contactList';
 
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const contactData = Storage.load(STORAGE_KEY);
+
+    if (contactData) {
+      this.setState({ contacts: contactData });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const prevContacts = prevState.contacts;
+    const nextContacts = this.state.contacts;
+
+    if (prevContacts !== nextContacts) {
+      Storage.save(STORAGE_KEY, nextContacts);
+    }
+  }
 
   addContactItem = ({ name, number }) => {
     const isAlreadyInContacts = this.preventAddingSameContact(name);
