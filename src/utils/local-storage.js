@@ -26,10 +26,10 @@ const remove = key => {
   }
 };
 
-const localStorage = {
+const Storage = {
   save,
   load,
   remove,
 };
 
-export default localStorage;
+export default Storage;
