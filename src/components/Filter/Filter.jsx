@@ -4,7 +4,7 @@ import css from './Filter.module.css';
 export const Filter = ({ filterValue, onFilterChange }) => {
   return (
     <label className={css.filterLabel}>
-      <span>Find contact by name</span>
+      <span className={css.filterLabelText}>Find contact by name</span>
       <input
         className={css.filterInput}
         type="text"
