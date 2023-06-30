@@ -6,7 +6,9 @@
   --black-color: #000000;
   --grey-color: rgb(128, 123, 123);
   --light-blue-color: rgb(0, 162, 255);
+  --ice-blue-color: rgba(131, 245, 246, 0.87);
   --light-violet-color: rgba(137, 42, 252, 0.63);
+  --dark-violet-color: rgb(92, 0, 181);
   /* Shadows */
   --box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
