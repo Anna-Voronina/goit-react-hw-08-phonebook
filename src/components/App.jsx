@@ -5,6 +5,7 @@ import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 import css from './App.module.css';
+import { toast } from 'react-toastify';
 
 const STORAGE_KEY = 'contactList';
 const initialState = [];
@@ -25,7 +26,7 @@ export const App = () => {
     const isAlreadyInContacts = preventAddingSameContact(name);
 
     if (isAlreadyInContacts) {
-      alert(`${name} is already in contacts.`);
+      toast.info(`${name} is already in contacts.`);
       return;
     }
 
