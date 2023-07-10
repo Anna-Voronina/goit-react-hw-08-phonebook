@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { addNewContact } from 'redux/contactsSlice';
+import { addContactThunk } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
 
@@ -40,7 +40,7 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addNewContact({ name, number }));
+    dispatch(addContactThunk({ name, phone: number }));
     setName('');
     setNumber('');
   };
