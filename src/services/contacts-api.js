@@ -14,7 +14,4 @@ export const addContact = async newContact => {
   return data;
 };
 
-export const deleteContact = async id => {
-  const { data } = await contactsAPI.delete(`/contacts/${id}`);
-  return data;
-};
+export const deleteContact = id => contactsAPI.delete(`/contacts/${id}`);

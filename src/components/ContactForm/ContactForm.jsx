@@ -5,30 +5,16 @@ import { addContactThunk } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
 
-const INPUT_TYPES = { NAME: 'name', NUMBER: 'number' };
-
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contactMap = { name: setName, number: setNumber };
 
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
 
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-
-    switch (name) {
-      case INPUT_TYPES.NAME:
-        setName(value);
-        break;
-
-      case INPUT_TYPES.NUMBER:
-        setNumber(value);
-        break;
-
-      default:
-        break;
-    }
+  const handleInputChange = ({ target: { name, value } }) => {
+    contactMap[name](value);
   };
 
   const handleSubmit = event => {
@@ -40,7 +26,9 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addContactThunk({ name, phone: number }));
+    dispatch(addContactThunk({ name, phone: number }))
+      .unwrap()
+      .catch(() => toast.error('Server request error. Please try again.'));
     setName('');
     setNumber('');
   };

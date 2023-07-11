@@ -1,18 +1,22 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
+import { toast } from 'react-toastify';
+import { selectIsLoading } from 'redux/selectors';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import css from './App.module.css';
-import { useEffect } from 'react';
 import { fetchContactsThunk } from 'redux/operations';
+import { Loader } from './Loader/Loader';
+import css from './App.module.css';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
-    dispatch(fetchContactsThunk());
+    dispatch(fetchContactsThunk())
+      .unwrap()
+      .catch(() => toast.error('Server request error. Please try again.'));
   }, [dispatch]);
 
   return (
@@ -25,13 +29,7 @@ export const App = () => {
       <div className={css.contactsWrapper}>
         <h2 className={css.title}>Contacts</h2>
         <Filter />
-        {contacts?.length === 0 ? (
-          <h3 className={css.title}>
-            There are no contacts in your phone book.
-          </h3>
-        ) : (
-          <ContactList />
-        )}
+        {isLoading ? <Loader /> : <ContactList />}
       </div>
     </div>
   );
