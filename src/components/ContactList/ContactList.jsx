@@ -15,11 +15,11 @@ export const ContactList = () => {
         <h3 className={css.title}>There are no contacts in your phone book.</h3>
       ) : (
         <ul className={css.contactList}>
-          {filteredContacts.map(({ name, id, phone }) => (
+          {filteredContacts.map(({ name, id, number }) => (
             <li key={id} className={css.contactListItem}>
               <p>
                 <span>{`${name}: `}</span>
-                <span>{phone}</span>
+                <span>{number}</span>
               </p>
               <button
                 className={css.contactListItemBtn}

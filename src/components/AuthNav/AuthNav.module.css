@@ -1,0 +1,28 @@
+.navList {
+  display: flex;
+  gap: 15px;
+}
+
+.navLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 30px;
+  min-width: 80px;
+
+  color: var(--black-color);
+  font-weight: 700;
+  text-transform: uppercase;
+
+  background-image: url(./../../images/nav-link-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: 30% 50%;
+
+  transition: scale var(--transition);
+}
+
+.navLink:hover,
+.navLink:focus {
+  scale: 1.08;
+}

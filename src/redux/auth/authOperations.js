@@ -49,7 +49,7 @@ export const fetchCurrentUserThunk = createAsyncThunk(
     const persistedToken = state.auth.token;
 
     if (!persistedToken) {
-      rejectWithValue('Unable to fetch user.');
+      return rejectWithValue('Unable to fetch user.');
     }
 
     setToken(persistedToken);

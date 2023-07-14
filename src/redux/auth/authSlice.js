@@ -1,5 +1,10 @@
 const { createSlice } = require('@reduxjs/toolkit');
-const { signUpThunk, logInThunk, logOutThunk } = require('./authOperations');
+const {
+  signUpThunk,
+  logInThunk,
+  logOutThunk,
+  fetchCurrentUserThunk,
+} = require('./authOperations');
 
 const initialState = {
   user: {
@@ -30,6 +35,17 @@ const authSlice = createSlice({
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
+      })
+      .addCase(fetchCurrentUserThunk.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(fetchCurrentUserThunk.pending, (state, action) => {
+        state.isRefreshing = true;
+      })
+      .addCase(fetchCurrentUserThunk.rejected, (state, action) => {
+        state.isRefreshing = false;
       }),
 });
 
