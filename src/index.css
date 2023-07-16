@@ -9,6 +9,7 @@
   --grey-color: #807b7b;
   --light-blue-color: #00a2ff;
   --ice-blue-color: #83f5f6de;
+  --dark-blue-color: #000066;
   --light-violet-color: #892afca1;
   --dark-violet-color: #5c00b5;
   --bg-color: #7112c957;
@@ -22,11 +23,16 @@
   --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: var(--primary-font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--dark-blue-color);
 }
 
 code {

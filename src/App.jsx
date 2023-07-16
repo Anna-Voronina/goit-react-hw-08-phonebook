@@ -7,10 +7,12 @@ import { fetchCurrentUserThunk } from 'redux/auth/authOperations';
 import { selectIsRefreshing } from 'redux/auth/authSelectors';
 import { PublicRoute } from 'hoc/PublicRoute';
 import { PrivateRoute } from 'hoc/PrivateRoute';
+import LoadingPage from 'pages/LoadingPage/LoadingPage';
 
 const ContactsPage = lazy(() => import('pages/Contacts/ContactsPage'));
 const RegisterPage = lazy(() => import('pages/Register/RegisterPage'));
 const LogInPage = lazy(() => import('pages/LogIn/LogInPage'));
+const NotFound = lazy(() => import('pages/NotFound/NotFound'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <h1>Loading</h1>
+    <LoadingPage />
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -52,6 +54,7 @@ export const App = () => {
             <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
           }
         />
+        <Route path="*" element={<PublicRoute component={<NotFound />} />} />
       </Route>
     </Routes>
   );

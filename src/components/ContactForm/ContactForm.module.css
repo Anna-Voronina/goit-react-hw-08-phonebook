@@ -3,35 +3,41 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 20px;
-  padding: 10px;
+  padding: 15px;
 
-  background-color: var(--light-violet-color);
+  background-color: var(--orange-color);
   border: 3px solid transparent;
-  border-radius: 5px;
 }
 
 .contactFormLabel {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 
-  font-style: italic;
   font-weight: 500;
-  color: white;
+  color: var(--black-color);
 }
 
 .contactFormInput {
-  width: 300px;
-  height: 26px;
-  padding-left: 10px;
+  min-height: 30px;
+  padding: 3px 10px;
+  padding-left: 30px;
+  outline: none;
+  border: 2px solid transparent;
 
-  outline: 3px solid transparent;
-  border: none;
-  border-radius: 5px;
+  transition: border-color var(--transition);
 }
 
 .contactFormInput:focus {
-  outline-color: var(--ice-blue-color);
+  border-color: var(--dark-blue-color);
+}
+
+.icon {
+  position: absolute;
+  bottom: 12%;
+  left: 3%;
 }
 
 .addContactBtn {
@@ -44,17 +50,15 @@
   align-items: center;
 
   font-weight: 500;
-  color: var(--dark-violet-color);
+  color: var(--white-color);
 
-  background-color: var(--white-color);
+  background-color: var(--dark-blue-color);
   border-radius: 5px;
-  transition: color var(--transition), background-color var(--transition),
-    box-shadow var(--transition);
+  transition: color var(--transition), background-color var(--transition);
 }
 
 .addContactBtn:hover,
 .addContactBtn:focus {
-  color: var(--white-color);
-  background-color: var(--dark-violet-color);
-  box-shadow: var(--light-box-shadow);
+  color: var(--black-color);
+  background-color: var(--white-color);
 }

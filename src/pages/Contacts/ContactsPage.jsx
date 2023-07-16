@@ -21,12 +21,11 @@ const ContactsPage = () => {
   return (
     <div className={css.container}>
       <div className={css.phoneBookWrapper}>
-        <h1 className={css.title}>Phonebook</h1>
         <ContactForm />
       </div>
 
       <div className={css.contactsWrapper}>
-        <h2 className={css.title}>Contacts</h2>
+        <h2 className={css.title}>My Contacts</h2>
         <Filter />
         {isLoading ? <Loader /> : <ContactList />}
       </div>

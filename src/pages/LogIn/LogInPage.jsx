@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { RiLockPasswordFill } from 'react-icons/ri';
+import { HiMail } from 'react-icons/hi';
 import { logInThunk } from 'redux/auth/authOperations';
+import css from './LogInPage.module.css';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -15,33 +19,46 @@ const LoginPage = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(logInThunk({ email, password }));
+    dispatch(logInThunk({ email, password }))
+      .unwrap()
+      .then(() => toast('Welcome back! You have successfully logged in.'))
+      .catch(() => toast.error('Server request error. Please try again.'));
     setEmail('');
     setPassword('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <span>Email</span>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        <span>Password</span>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleInputChange}
-        />
-      </label>
-      <button type="submit">Log in</button>
-    </form>
+    <div className={css.wrapper}>
+      <form className={css.form} onSubmit={handleSubmit}>
+        <label className={css.label}>
+          <span>Email</span>
+          <HiMail className={css.icon} />
+          <input
+            className={css.input}
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <label className={css.label}>
+          <span>Password</span>
+          <RiLockPasswordFill className={css.icon} />
+          <input
+            className={css.input}
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <button className={css.btn} type="submit">
+          Log in
+        </button>
+      </form>
+    </div>
   );
 };
 

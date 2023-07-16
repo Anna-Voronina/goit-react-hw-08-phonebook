@@ -1,12 +1,13 @@
-import { NavBar } from 'components/NavBar/NavBar';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import { NavBar } from 'components/NavBar/NavBar';
+import LoadingPage from 'pages/LoadingPage/LoadingPage';
 
 export const Layout = () => {
   return (
     <>
       <NavBar />
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={<LoadingPage />}>
         <main>
           <Outlet />
         </main>

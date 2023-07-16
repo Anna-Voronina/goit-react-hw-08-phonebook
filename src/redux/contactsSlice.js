@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   addContactThunk,
   deleteContactThunk,
@@ -42,8 +42,22 @@ const contactsSlice = createSlice({
         state.items.splice(index, 1);
         state.isLoading = false;
       })
-      .addMatcher(action => action.type.endsWith('/pending'), pendingStatus)
-      .addMatcher(action => action.type.endsWith('/rejected'), rejectedStatus);
+      .addMatcher(
+        isAnyOf(
+          fetchContactsThunk.pending,
+          addContactThunk.pending,
+          deleteContactThunk.pending
+        ),
+        pendingStatus
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchContactsThunk.rejected,
+          addContactThunk.rejected,
+          deleteContactThunk.rejected
+        ),
+        rejectedStatus
+      );
   },
 });
 

@@ -1,4 +1,5 @@
 .filterLabel {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -6,21 +7,29 @@
 }
 
 .filterLabelText {
+  width: 100%;
+
   font-weight: 500;
-  font-style: italic;
-  color: var(--dark-violet-color);
+  color: var(--white-color);
 }
 
 .filterInput {
-  width: 300px;
-  height: 26px;
-  padding-left: 10px;
+  min-height: 26px;
+  padding: 5px 10px;
+  padding-left: 30px;
 
-  outline: 3px solid var(--light-violet-color);
-  border: none;
-  border-radius: 5px;
+  outline: none;
+  border: 2px solid transparent;
+
+  transition: border-color var(--transition);
 }
 
 .filterInput:focus {
-  outline-color: var(--ice-blue-color);
+  border-color: var(--orange-color);
+}
+
+.icon {
+  position: absolute;
+  bottom: 12%;
+  left: 3%;
 }

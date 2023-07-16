@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { FaHouseUser } from 'react-icons/fa';
 import { logOutThunk } from 'redux/auth/authOperations';
 import { selectUser } from 'redux/auth/authSelectors';
 import css from './UserMenu.module.css';
@@ -7,27 +9,35 @@ import css from './UserMenu.module.css';
 export const UserMenu = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const { name, email } = user;
 
   const handleLogOut = () => {
-    dispatch(logOutThunk());
+    dispatch(logOutThunk())
+      .unwrap()
+      .then(() =>
+        toast('You have successfully logged out. Hope to see you again soon!')
+      )
+      .catch(() => toast.error('Server request error. Please try again.'));
   };
 
   return (
-    <ul className={css.navList}>
-      <li>
-        <NavLink className={css.navLink} to="/contacts">
-          Contacts
-        </NavLink>
-      </li>
-      <li>
-        <img src="" alt="" />
-        <p>Welcome {name}</p>
-        <p>{email}</p>
-        <button type="button" onClick={handleLogOut}>
-          Log out
-        </button>
-      </li>
-    </ul>
+    <div className={css.wrapper}>
+      <div className={css.userMenu}>
+        <FaHouseUser />
+        <p>{user.email}</p>
+      </div>
+
+      <ul className={css.navList}>
+        <li>
+          <NavLink className={css.navLink} to="/contacts">
+            Contacts
+          </NavLink>
+        </li>
+        <li>
+          <button className={css.navLink} type="button" onClick={handleLogOut}>
+            Log out
+          </button>
+        </li>
+      </ul>
+    </div>
   );
 };

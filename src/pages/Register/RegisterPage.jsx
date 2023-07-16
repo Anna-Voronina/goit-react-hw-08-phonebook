@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { RiLockPasswordFill } from 'react-icons/ri';
+import { HiMail } from 'react-icons/hi';
+import { BiSolidUserPin } from 'react-icons/bi';
 import { signUpThunk } from 'redux/auth/authOperations';
+import css from './RegisterPage.module.css';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -16,43 +21,59 @@ const RegisterPage = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(signUpThunk({ name, email, password }));
+    dispatch(signUpThunk({ name, email, password }))
+      .unwrap()
+      .then(() => toast('You have successfully signed up!'))
+      .catch(() => toast.error('Server request error. Please try again.'));
     setName('');
     setEmail('');
     setPassword('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <span>Name</span>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        <span>Email</span>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleInputChange}
-        />
-      </label>
-      <label>
-        <span>Password</span>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleInputChange}
-        />
-      </label>
-      <button type="submit">Sign up</button>
-    </form>
+    <div className={css.wrapper}>
+      <form className={css.form} onSubmit={handleSubmit}>
+        <label className={css.label}>
+          <span>Name</span>
+          <BiSolidUserPin className={css.icon} />
+          <input
+            className={css.input}
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <label className={css.label}>
+          <span>Email</span>
+          <HiMail className={css.icon} />
+          <input
+            className={css.input}
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <label className={css.label}>
+          <span>Password</span>
+          <RiLockPasswordFill className={css.icon} />
+          <input
+            className={css.input}
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+        <button className={css.btn} type="submit">
+          Sign up
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { RiShieldUserFill } from 'react-icons/ri';
+import { BsPhoneVibrateFill } from 'react-icons/bs';
 import { addContactThunk } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
@@ -45,6 +47,7 @@ export const ContactForm = () => {
     <form className={css.contactForm} onSubmit={handleSubmit}>
       <label className={css.contactFormLabel}>
         <span>Name</span>
+        <RiShieldUserFill className={css.icon} />
         <input
           className={css.contactFormInput}
           type="text"
@@ -59,6 +62,7 @@ export const ContactForm = () => {
 
       <label className={css.contactFormLabel}>
         <span>Number</span>
+        <BsPhoneVibrateFill className={css.icon} />
         <input
           className={css.contactFormInput}
           type="tel"

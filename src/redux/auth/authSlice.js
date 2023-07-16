@@ -1,4 +1,4 @@
-const { createSlice } = require('@reduxjs/toolkit');
+const { createSlice, isAnyOf } = require('@reduxjs/toolkit');
 const {
   signUpThunk,
   logInThunk,
@@ -11,9 +11,21 @@ const initialState = {
     name: null,
     email: null,
   },
+  isLoading: false,
+  error: null,
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+};
+
+const rejectedStatus = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
+const pendingStatus = state => {
+  state.isLoading = true;
+  state.error = null;
 };
 
 const authSlice = createSlice({
@@ -31,7 +43,7 @@ const authSlice = createSlice({
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(logOutThunk.fulfilled, (state, action) => {
+      .addCase(logOutThunk.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
@@ -41,12 +53,24 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(fetchCurrentUserThunk.pending, (state, action) => {
+      .addCase(fetchCurrentUserThunk.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(fetchCurrentUserThunk.rejected, (state, action) => {
+      .addCase(fetchCurrentUserThunk.rejected, state => {
         state.isRefreshing = false;
-      }),
+      })
+      .addMatcher(
+        isAnyOf(signUpThunk.pending, logInThunk.pending, logOutThunk.pending),
+        pendingStatus
+      )
+      .addMatcher(
+        isAnyOf(
+          signUpThunk.rejected,
+          logInThunk.rejected,
+          logOutThunk.rejected
+        ),
+        rejectedStatus
+      ),
 });
 
 export const authReducer = authSlice.reducer;
