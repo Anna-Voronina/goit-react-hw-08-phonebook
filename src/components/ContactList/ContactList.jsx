@@ -25,11 +25,9 @@ export const ContactList = () => {
                 className={css.contactListItemBtn}
                 type="button"
                 onClick={() =>
-                  dispatch(deleteContactThunk(id))
-                    .unwrap()
-                    .catch(() =>
-                      toast.error('Server request error. Please try again.')
-                    )
+                  dispatch(deleteContactThunk(id)).catch(() =>
+                    toast.error('Server request error. Please try again.')
+                  )
                 }
               >
                 Delete

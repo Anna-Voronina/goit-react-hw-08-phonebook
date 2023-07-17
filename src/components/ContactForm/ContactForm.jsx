@@ -28,9 +28,9 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addContactThunk({ name, number }))
-      .unwrap()
-      .catch(() => toast.error('Server request error. Please try again.'));
+    dispatch(addContactThunk({ name, number })).catch(() =>
+      toast.error('Server request error. Please try again.')
+    );
     setName('');
     setNumber('');
   };

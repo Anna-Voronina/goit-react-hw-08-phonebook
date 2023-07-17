@@ -14,9 +14,9 @@ const ContactsPage = () => {
   const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
-    dispatch(fetchContactsThunk())
-      .unwrap()
-      .catch(() => toast.error('Server request error. Please try again.'));
+    dispatch(fetchContactsThunk()).catch(() =>
+      toast.error('Server request error. Please try again.')
+    );
   }, [dispatch]);
   return (
     <div className={css.container}>

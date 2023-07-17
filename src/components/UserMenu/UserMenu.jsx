@@ -12,7 +12,6 @@ export const UserMenu = () => {
 
   const handleLogOut = () => {
     dispatch(logOutThunk())
-      .unwrap()
       .then(() =>
         toast('You have successfully logged out. Hope to see you again soon!')
       )

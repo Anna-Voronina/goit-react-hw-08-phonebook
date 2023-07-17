@@ -20,7 +20,6 @@ const LoginPage = () => {
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(logInThunk({ email, password }))
-      .unwrap()
       .then(() => toast('Welcome back! You have successfully logged in.'))
       .catch(() => toast.error('Server request error. Please try again.'));
     setEmail('');

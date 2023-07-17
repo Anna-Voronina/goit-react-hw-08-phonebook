@@ -22,7 +22,6 @@ const RegisterPage = () => {
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(signUpThunk({ name, email, password }))
-      .unwrap()
       .then(() => toast('You have successfully signed up!'))
       .catch(() => toast.error('Server request error. Please try again.'));
     setName('');
